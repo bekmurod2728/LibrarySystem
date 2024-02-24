@@ -6,10 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Data
@@ -19,12 +18,13 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BronBook {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    LocalDate bronDate;
+    LocalTime bronTime;
+    LocalTime deadlineBronTime;
     Boolean isBron;
-    @OneToOne
+    @ManyToOne
     Book book;
 
-    @OneToOne
-    ManageLibrary manageLibrary;
+
 }

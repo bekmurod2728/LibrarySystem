@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Data
@@ -19,10 +20,8 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ManageLibraryDto {
 
-    LocalDate borrow;
-    LocalDate returnDate;
+    LocalTime borrow;
+    LocalTime returnTime;
     Boolean isBorrow;
-
-
-    Long bronBook_id;
+    Long book_id;
 }

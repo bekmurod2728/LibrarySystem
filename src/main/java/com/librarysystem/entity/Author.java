@@ -7,9 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -19,6 +18,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Author {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String first_name;
@@ -27,4 +27,11 @@ public class Author {
     String citizenship;
     @OneToMany(mappedBy = "author")
     List<Book> books;
+
+    public  void addBooks(Book book){
+        if (books ==null){
+            books=new ArrayList<>();
+        }
+        books.add(book);
+    }
 }

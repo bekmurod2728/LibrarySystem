@@ -31,32 +31,42 @@ public class BookService {
         this.genreRepository = genreRepository;
     }
 
-    public ResponseEntity<List<Book>> getAll(){
+    public ResponseEntity<List<Book>> getAll() {
         return ResponseEntity.ok(bookRepository.findAll());
     }
 
-    public void addBooks(BookDto bookDto){
-        Optional<Author> byId = authorRepository.findById(bookDto.getAuthor_id());
-        Optional<Kutubxona> byId1 = kutubxonaRepository.findById(bookDto.getKutubxona_id());
-        Optional<Genre> byId2 = genreRepository.findById(bookDto.getGenre_id());
-        if (byId.isPresent() && byId1.isPresent()&& byId2.isPresent()){
-            Author author = byId.get();
-            Kutubxona kutubxona = byId1.get();
-            Genre genre = byId2.get();
-            Book book=new Book();
-            book.setBookPage(bookDto.getBookPage());
-            book.setBookName(bookDto.getBookName());
-            book.setAuthor(author);
-            book.setKutubxona(kutubxona);
-            book.addGenre(genre);
-            bookRepository.save(book);
-            kutubxonaRepository.save(kutubxona);
-            authorRepository.save(author);
-            genreRepository.save(genre);
+    public void addBooks(BookDto bookDto) {
+        if (bookDto.getAuthor_id() != null && bookDto.getKutubxona_id() != null
+                && bookDto.getGenre_id() != null) {
+            Optional<Author> byId = authorRepository.findById(bookDto.getAuthor_id());
+            Optional<Kutubxona> byId1 = kutubxonaRepository.findById(bookDto.getKutubxona_id());
+            Optional<Genre> byId2 = genreRepository.findById(bookDto.getGenre_id());
+            if (byId.isPresent() && byId1.isPresent() && byId2.isPresent()) {
+                Author author = byId.get();
+                Kutubxona kutubxona = byId1.get();
+                Genre genre = byId2.get();
+                Book book = new Book();
+                book.setBookPage(bookDto.getBookPage());
+                book.setBookName(bookDto.getBookName());
+                book.setAuthor(author);
+                book.setKutubxona(kutubxona);
+                book.addGenre(genre);
+                author.addBooks(book);
+                bookRepository.save(book);
+                kutubxonaRepository.save(kutubxona);
+                authorRepository.save(author);
+                genreRepository.save(genre);
+            }
         }
+//        }else {
+//            Book book=new Book();
+//            book.setBookName(bookDto.getBookName());
+//            book.setBookPage(bookDto.getBookPage());
+//            bookRepository.save(book);
+//        }
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         bookRepository.deleteById(id);
     }
 

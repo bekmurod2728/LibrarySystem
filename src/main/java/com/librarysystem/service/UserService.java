@@ -1,6 +1,7 @@
 package com.librarysystem.service;
 
 import com.librarysystem.dto.UserDto;
+import com.librarysystem.entity.ApplicationUserRole;
 import com.librarysystem.entity.User;
 import com.librarysystem.entity.UserData;
 import com.librarysystem.repasitory.UserDataRepository;
@@ -26,14 +27,17 @@ public class UserService implements UserDetailsService {
     public void addUser(UserDto userDto){
         User user=new User();
         user.setUsername(userDto.getUsername());
+        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+        userRepository.save(user);
         UserData userData=new UserData();
         userData.setAge(userDto.getAge());
         userData.setEmail(userDto.getEmail());
         userData.setCitizenship(userDto.getCitizenship());
         userData.setFirst_name(userDto.getFirst_name());
         userData.setLast_name(userDto.getLast_name());
+        userData.setRole(ApplicationUserRole.valueOf(userDto.getRole()));
         user.setUserData(userData);
-        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+
         userData.setUser(user);
         userDataRepository.save(userData);
         userRepository.save(user);

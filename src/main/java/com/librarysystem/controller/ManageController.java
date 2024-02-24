@@ -20,17 +20,17 @@ public class ManageController {
     }
 
 
-    @GetMapping("/bron_book_show")
-    public List<BronBook> getBronBooks(){
-        return manageService.getAll();
-    }
+//    @GetMapping("/bron_book_show")
+//    public List<BronBook> getBronBooks(){
+//        return manageService.getAll();
+//    }
     @GetMapping("/borrow-book_show")
     public List<ManageLibrary> getBorrowBooks(){
         return manageService.show();
     }
 
-    @GetMapping("/borrow/{id}")
-    public void addBorrow(@PathVariable Long id){
-        manageService.addBorrow(id);
+    @PostMapping("/borrow")
+    public void addBorrow(@RequestBody ManageLibraryDto managedto){
+        manageService.addBorrow(managedto);
     }
 }

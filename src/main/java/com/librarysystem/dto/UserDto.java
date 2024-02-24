@@ -27,6 +27,7 @@ public class UserDto {
     Integer age;
     String citizenship;
     String email;
+    String role;
 
 
 }

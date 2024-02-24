@@ -19,13 +19,11 @@ public class KutubxonaService {
         this.bookRepository = bookRepository;
     }
     public void addBookToKutubxona(KutubxonaDto kutubxonaDto){
-
             Kutubxona kutubxona=new Kutubxona();
             kutubxona.setBookcase(kutubxonaDto.getBookcase());
             kutubxona.setRow(kutubxonaDto.getRow());
             kutubxona.setShelf(kutubxonaDto.getShelf());
             kutubxona.setFloor(kutubxonaDto.getFloor());
             kutubxonaRepository.save(kutubxona);
-
     }
 }

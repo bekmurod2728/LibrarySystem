@@ -6,11 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Data
@@ -20,14 +18,13 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ManageLibrary {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    LocalDate borrow;
-    LocalDate returnDate;
+    LocalTime borrow;
+    LocalTime returnTime;
     Boolean isBorrow;
 
-    @OneToOne
+    @ManyToOne
     Book book;
 
-    @OneToOne
-    BronBook bronBook;
 }

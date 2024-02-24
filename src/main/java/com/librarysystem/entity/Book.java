@@ -18,7 +18,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Book {
     @Id
-            @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String bookName;
@@ -32,15 +32,32 @@ public class Book {
     @ManyToOne
     Kutubxona kutubxona;
 
-    @OneToOne
-    BronBook bronBook;
+    @OneToMany(mappedBy = "book")
+    List<BronBook> bronBooks;
 
-    @OneToOne
-    ManageLibrary manageLibraries;
+    @OneToMany(mappedBy = "book")
+    List<ManageLibrary> manageLibraries;
 
-    public void addGenre(Genre genre){
-        if (genres==null){
-            genres=new ArrayList<>();
+    @ManyToOne
+    UserData userData;
+
+
+
+    public void addManage(ManageLibrary manageLibrary) {
+        if (manageLibraries == null) {
+            manageLibraries = new ArrayList<>();
+        }
+        manageLibraries.add(manageLibrary);
+    }
+    public void addBronBook(BronBook bronBook) {
+        if (bronBooks == null) {
+            bronBooks = new ArrayList<>();
+        }
+        bronBooks.add(bronBook);
+    }
+    public void addGenre(Genre genre) {
+        if (genres == null) {
+            genres = new ArrayList<>();
         }
         genres.add(genre);
     }

@@ -20,15 +20,17 @@ public class GenreService {
     }
 
     public void addGenre(GenreDto genreDto){
-        Optional<Book> byId = bookRepository.findById(genreDto.getBook_id());
-        if (byId.isPresent()){
-            Book book = byId.get();
-            Genre genre=new Genre();
-            genre.setGenreName(genreDto.getGenreName());
-            genre.addBook(book);
-            book.addGenre(genre);
-            bookRepository.save(book);
-            genreRepository.save(genre);
+        if (genreDto.getBook_id()!=null){
+            Optional<Book> byId = bookRepository.findById(genreDto.getBook_id());
+            if (byId.isPresent()){
+                Book book = byId.get();
+                Genre genre=new Genre();
+                genre.setGenreName(genreDto.getGenreName());
+                genre.addBook(book);
+                book.addGenre(genre);
+                bookRepository.save(book);
+                genreRepository.save(genre);
+            }
         }
         Genre genre=new Genre();
         genre.setGenreName(genreDto.getGenreName());
